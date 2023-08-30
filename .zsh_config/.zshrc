@@ -1,119 +1,8 @@
-# only for performance test
-# bootstrap time cost:time zsh -i -c exit
-# time cost prof
-# zmodload zsh/zprof
-
-# zmodload zsh/datetime
-# setopt PROMPT_SUBST
-# PS4='+$EPOCHREALTIME %N:%i> '
-
 # ==============================================================================================================
 # ==================================================start=======================================================
 # ==============================================================================================================
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export BASE_CONFIG_PATH="$HOME/.custom_config"
-export ZSH_CONFIG_PATH="$BASE_CONFIG_PATH/.zsh_config"
-export GIT_CONFIG_PATH="$BASE_CONFIG_PATH/.git_config"
-
-export ZSH="$ZSH_CONFIG_PATH/.oh-my-zsh"
-
-export ZPLUG_PATH="$ZSH_CONFIG_PATH/zplug"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-ZSH_THEME_RANDOM_CANDIDATES=( "jnrowe" "macovsky" "skaro" "jbergantine" "eastwood" "crunch" "amuse")
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=$ZSH_CUSTOM
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(
-#   git
-#   autojump
-#   zsh-nvm
-#   zsh-defer
-#   pyenv-lazy
-#   # zsh-autosuggestions
-#   # zsh-syntax-highlighting
-# )
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
 export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -121,77 +10,46 @@ else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export config path variable
+export BASE_CONFIG_PATH="$HOME/.custom_config"
+export ZSH_CONFIG_PATH="$BASE_CONFIG_PATH/.zsh_config"
+export GIT_CONFIG_PATH="$BASE_CONFIG_PATH/.git_config"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-alias zshconfig="vim $ZSH_CONFIG_PATH/.zshrc"
-alias ohmyzsh="vim $ZSH/oh-my-zsh.sh"
+export ANTIGEN_PATH="$ZSH_CONFIG_PATH/antigen"
+export ZPLUG_PATH="$ZSH_CONFIG_PATH/zplug"
+export ZINIT_PATH="$ZSH_CONFIG_PATH/zinit"
+export ZSH_TOOL_PATH="$ZSH_CONFIG_PATH/tool"
 
-# source $ZSH/oh-my-zsh.sh
-source $ZSH_CONFIG_PATH/custom/common.sh
+# ==============================================================================================================
+# ==============================================================================================================
+# ==============================================================================================================
 
-source $ZSH_CONFIG_PATH/antigen.zsh
-antigen use oh-my-zsh
-antigen bundle command-not-found
-antigen bundle git
-antigen bundle osx
-antigen bundle zsh-nvm
-antigen bundle rsync
-antigen bundle autojump
-antigen bundle pyenv-lazy
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme crunch
-antigen apply
+# activate scripts
+source $ZSH_CONFIG_PATH/scripts/common.sh
 
-source $ZSH_CONFIG_PATH/incr/incr.zsh
-
-# lazy load
-my_lazyload_add_command() {
-    local command_name=$1
-    eval "${command_name}() { \
-        unfunction ${command_name}; \
-        _my_lazyload_command_${command_name}; \
-        return ${command_name} \"\$@\"; \
-    }"
-}
-my_lazyload_add_comp() {
-    local command_name=$1
-    local comp_name="_my_lazyload__compfunc_${command_name}"
-    eval "${comp_name}() { \
-        compdef -d ${comp_name}; \
-        unfunction ${comp_name}; \
-        _my_lazyload_comp_${command_name}; \
-    }"
-    compdef $comp_name $command_name
-}
+# plugin manager load
+# _my_lazyload_command_antigen() {
+#   source $ANTIGEN_PATH/antigen.zsh
+# }
+# my_lazyload_add_command antigen
 
 _my_lazyload_command_zplug() {
   source $ZPLUG_PATH/init.zsh
 }
 my_lazyload_add_command zplug
 
-_my_lazyload_command_fzf() {
-  # fzf configure
-  [[ ! -f $ZSH_CONFIG_PATH/.fzf.zsh ]] || source $ZSH_CONFIG_PATH/.fzf.zsh
-}
-my_lazyload_add_command fzf
-
-_my_lazyload_command_p10k() {
-  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  source $ZSH_CONFIG_PATH/powerlevel10k/powerlevel10k.zsh-theme
-  [[ ! -f $ZSH_CONFIG_PATH/.p10k.zsh ]] || source $ZSH_CONFIG_PATH/.p10k.zsh
-}
-my_lazyload_add_command p10k
-
 _my_lazyload_command_zinit() {
-  source $ZSH_CONFIG_PATH/zinit/zi.zsh
+  source $ZINIT_PATH/zi.zsh
 }
 my_lazyload_add_command zinit
+
+
+# tool load
+_my_lazyload_command_fzf() {
+  # fzf configure
+  [[ ! -f $ZSH_TOOL_PATH/.fzf.zsh ]] || source $ZSH_TOOL_PATH/.fzf.zsh
+}
+my_lazyload_add_command fzf
 
 
 # ==============================================================================================================

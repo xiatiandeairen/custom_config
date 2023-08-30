@@ -1,0 +1,2 @@
+export DIR_workspace="$HOME/Desktop/workspace"
+export DIR_home="$HOME"
