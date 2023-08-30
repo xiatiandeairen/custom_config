@@ -1,16 +1,16 @@
 # USAGE: 
-# s bookmarkname - saves the curr dir as bookmarkname
-# g bookmarkname - jumps to the that bookmark
-# g b[TAB] - tab completion is available
-# p bookmarkname - prints the bookmark
-# p b[TAB] - tab completion is available
-# d bookmarkname - deletes the bookmark
-# d [TAB] - tab completion is available
-# l - list all bookmarks
+# add_label bookmarkname - saves the curr dir as bookmarkname
+# goto_label bookmarkname - jumps to the that bookmark
+# goto_label b[TAB] - tab completion is available
+# print_label bookmarkname - prints the bookmark
+# print_label b[TAB] - tab completion is available
+# delete_label bookmarkname - deletes the bookmark
+# delete_label [TAB] - tab completion is available
+# list_label - list all bookmarks
 
 # setup file to store bookmarks
 if [ ! -n "$SDIRS" ]; then
-    SDIRS=$ZSH_CONFIG_PATH/custom/bookmarks_temp
+    SDIRS=$CUSTOM_SCRIPTS_PATH/bookmarks_temp
 fi
 touch $SDIRS
 
@@ -62,7 +62,7 @@ function delete_label {
 # print out help for the forgetful
 function check_help {
     if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
-        echo ''
+        echo 'USAGE: Command labelName'
         echo 'add_label <bookmark_name> - Saves the current directory as "bookmark_name"'
         echo 'goto_label <bookmark_name> - Goes (cd) to the directory associated with "bookmark_name"'
         echo 'print_label <bookmark_name> - Prints the directory associated with "bookmark_name"'
