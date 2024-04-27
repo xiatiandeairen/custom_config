@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.github.sunzsh</string>
+	<key>connections</key>
+	<dict>
+		<key>D8AA59A7-8064-4DCD-8CDF-680CD812BEA6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>02AB693B-6BD4-4FDB-9B39-83CBBF32A013</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>xiaoshan</string>
+	<key>description</key>
+	<string>open iterm by the path of current xcode project file</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>OpenItermInXCode</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+  tell application "Xcode"
+    tell front document
+      set proPath to path as string
+      set defaultDelimiters to AppleScript's text item delimiters
+      set AppleScript's text item delimiters to "/"
+      set listAfterDelimiter to every text item of proPath
+      set listAfterDelimiter to (reverse of rest of reverse of listAfterDelimiter)
+      
+      set restoredString to listAfterDelimiter as string
+      set AppleScript's text item delimiters to defaultDelimiters
+      set pathList to (quoted form of POSIX path of (restoredString))
+      set command to "clear; cd " &amp; pathList
+    end tell
+  end tell  
+
+  tell application "System Events"
+    -- some versions might identify as "iTerm2" instead of "iTerm"
+    set isRunning to (exists (processes where name is "iTerm")) or (exists (processes where name is "iTerm2"))
+  end tell
+
+  tell application "iTerm"
+    -- activate
+    set hasNoWindows to ((count of windows) is 0)
+    if isRunning and hasNoWindows then
+      create window with default profile
+    end if
+    select first window
+    activate
+    
+    tell the first window
+      if isRunning and hasNoWindows is false then
+        create tab with default profile
+      end if
+      tell current session to write text command
+    end tell
+  end tell
+  
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>02AB693B-6BD4-4FDB-9B39-83CBBF32A013</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>xc2iterm</string>
+				<key>subtext</key>
+				<string>open iterm by the path of current xcode project file</string>
+				<key>text</key>
+				<string>XCode → iTerm</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>D8AA59A7-8064-4DCD-8CDF-680CD812BEA6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>02AB693B-6BD4-4FDB-9B39-83CBBF32A013</key>
+		<dict>
+			<key>xpos</key>
+			<integer>565</integer>
+			<key>ypos</key>
+			<integer>185</integer>
+		</dict>
+		<key>D8AA59A7-8064-4DCD-8CDF-680CD812BEA6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>260</integer>
+			<key>ypos</key>
+			<integer>185</integer>
+		</dict>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string></string>
+	<key>webaddress</key>
+	<string>https://github.com/sunzsh</string>
+</dict>
+</plist>

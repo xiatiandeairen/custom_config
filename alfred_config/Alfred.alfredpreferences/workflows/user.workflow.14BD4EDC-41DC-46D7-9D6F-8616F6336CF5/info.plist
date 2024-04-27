@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alexchantastic.openwithvscode_plus</string>
+	<key>connections</key>
+	<dict>
+		<key>036228F7-74F0-4550-8EDD-7203A343EF32</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ECF2EBB9-69D7-4F09-B936-39A3EB25AF39</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>492BB4E8-8652-4695-A53A-A0A4B2841F32</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CD8CDED1-9FDA-4C8A-A27F-979318A18CC8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E81ACEA0-FC02-4DB9-8006-2BA1EC216563</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CD8CDED1-9FDA-4C8A-A27F-979318A18CC8</key>
+		<array/>
+		<key>E81ACEA0-FC02-4DB9-8006-2BA1EC216563</key>
+		<array/>
+	</dict>
+	<key>createdby</key>
+	<string>Alex Chan</string>
+	<key>description</key>
+	<string>Open files or folders in Visual Studio Code.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Visual Studio Code plus</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>code</string>
+				<key>subtext</key>
+				<string>Open Finder folder or selection in Visual Studio Code or optionally enter a path to open</string>
+				<key>text</key>
+				<string>用VSCode打开</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>CC170ECD-6B82-4A05-8681-8185ACE453FE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run
+
+  set theQuery to "{query}"
+  set finderSelection to ""
+  set theTarget to ""
+  set defaultTarget to (path to home folder as alias)
+  -- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
+  -- set defaultTarget to (path to desktop folder as alias)
+
+  if theQuery is "" then
+      tell application "Finder"
+          set finderSelection to (get selection)
+          if length of finderSelection is greater than 0 then
+              set theTarget to finderSelection
+          else
+              try
+                  set theTarget to (folder of the front window as alias)
+              on error
+                  set theTarget to defaultTarget
+              end try
+          end if
+
+          tell application "Visual Studio Code"
+              open theTarget as alias
+          end tell
+
+      end tell
+  else
+      try
+          set targets to {}
+          set oldDelimiters to text item delimiters
+          set text item delimiters to tab
+          set qArray to every text item of theQuery
+          set text item delimiters to oldDelimiters
+          repeat with atarget in qArray
+
+              if atarget starts with "~" then
+                  set userHome to POSIX path of (path to home folder)
+                  if userHome ends with "/" then
+                      set userHome to characters 1 thru -2 of userHome as string
+                  end if
+
+                  try
+                      set atarget to userHome &amp; characters 2 thru -1 of atarget as string
+                  on error
+                      set atarget to userHome
+                  end try
+
+              end if
+
+              set targetAlias to ((POSIX file atarget) as alias)
+              set targets to targets &amp; targetAlias
+          end repeat
+
+          set theTarget to targets
+
+          tell application "Visual Studio Code"
+              open theTarget
+          end tell
+
+      on error
+          return (atarget as string) &amp; " is not a valid file or folder path."
+      end try
+  end if
+
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>E81ACEA0-FC02-4DB9-8006-2BA1EC216563</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>idea</string>
+				<key>subtext</key>
+				<string>Open Finder folder or selection in IntelliJ IDEA or optionally enter a path to open</string>
+				<key>text</key>
+				<string>用IDEA打开</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>492BB4E8-8652-4695-A53A-A0A4B2841F32</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run
+
+  set theQuery to "{query}"
+  set finderSelection to ""
+  set theTarget to ""
+  set defaultTarget to (path to home folder as alias)
+  -- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
+  -- set defaultTarget to (path to desktop folder as alias)
+
+  if theQuery is "" then
+      tell application "Finder"
+          set finderSelection to (get selection)
+          if length of finderSelection is greater than 0 then
+              set theTarget to finderSelection
+          else
+              try
+                  set theTarget to (folder of the front window as alias)
+              on error
+                  set theTarget to defaultTarget
+              end try
+          end if
+
+          tell application "IntelliJ IDEA"
+              open theTarget as alias
+          end tell
+
+      end tell
+  else
+      try
+          set targets to {}
+          set oldDelimiters to text item delimiters
+          set text item delimiters to tab
+          set qArray to every text item of theQuery
+          set text item delimiters to oldDelimiters
+          repeat with atarget in qArray
+
+              if atarget starts with "~" then
+                  set userHome to POSIX path of (path to home folder)
+                  if userHome ends with "/" then
+                      set userHome to characters 1 thru -2 of userHome as string
+                  end if
+
+                  try
+                      set atarget to userHome &amp; characters 2 thru -1 of atarget as string
+                  on error
+                      set atarget to userHome
+                  end try
+
+              end if
+
+              set targetAlias to ((POSIX file atarget) as alias)
+              set targets to targets &amp; targetAlias
+          end repeat
+
+          set theTarget to targets
+
+          tell application "IntelliJ IDEA"
+              open theTarget
+          end tell
+
+      on error
+          return (atarget as string) &amp; " is not a valid file or folder path."
+      end try
+  end if
+
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CD8CDED1-9FDA-4C8A-A27F-979318A18CC8</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run
+
+  set theQuery to "{query}"
+  set finderSelection to ""
+  set theTarget to ""
+  set defaultTarget to (path to home folder as alias)
+  -- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
+  -- set defaultTarget to (path to desktop folder as alias)
+
+  if theQuery is "" then
+      tell application "Finder"
+          set finderSelection to (get selection)
+          if length of finderSelection is greater than 0 then
+              set theTarget to finderSelection
+          else
+              try
+                  set theTarget to (folder of the front window as alias)
+              on error
+                  set theTarget to defaultTarget
+              end try
+          end if
+
+          tell application "Sublime Text"
+              open theTarget as alias
+          end tell
+
+      end tell
+  else
+      try
+          set targets to {}
+          set oldDelimiters to text item delimiters
+          set text item delimiters to tab
+          set qArray to every text item of theQuery
+          set text item delimiters to oldDelimiters
+          repeat with atarget in qArray
+
+              if atarget starts with "~" then
+                  set userHome to POSIX path of (path to home folder)
+                  if userHome ends with "/" then
+                      set userHome to characters 1 thru -2 of userHome as string
+                  end if
+
+                  try
+                      set atarget to userHome &amp; characters 2 thru -1 of atarget as string
+                  on error
+                      set atarget to userHome
+                  end try
+
+              end if
+
+              set targetAlias to ((POSIX file atarget) as alias)
+              set targets to targets &amp; targetAlias
+          end repeat
+
+          set theTarget to targets
+
+          tell application "Sublime Text"
+              open theTarget
+          end tell
+
+      on error
+          return (atarget as string) &amp; " is not a valid file or folder path."
+      end try
+  end if
+
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>ECF2EBB9-69D7-4F09-B936-39A3EB25AF39</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>st</string>
+				<key>subtext</key>
+				<string>Open Finder folder or selection in Sublime Text or optionally enter a path to open</string>
+				<key>text</key>
+				<string>用Sublime Text打开</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>036228F7-74F0-4550-8EDD-7203A343EF32</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>An Alfred 4 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
+	<key>uidata</key>
+	<dict>
+		<key>036228F7-74F0-4550-8EDD-7203A343EF32</key>
+		<dict>
+			<key>xpos</key>
+			<integer>155</integer>
+			<key>ypos</key>
+			<integer>400</integer>
+		</dict>
+		<key>492BB4E8-8652-4695-A53A-A0A4B2841F32</key>
+		<dict>
+			<key>xpos</key>
+			<integer>150</integer>
+			<key>ypos</key>
+			<integer>250</integer>
+		</dict>
+		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>150</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+		<key>CD8CDED1-9FDA-4C8A-A27F-979318A18CC8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>250</integer>
+		</dict>
+		<key>E81ACEA0-FC02-4DB9-8006-2BA1EC216563</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+		<key>ECF2EBB9-69D7-4F09-B936-39A3EB25AF39</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>400</integer>
+		</dict>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.1.2</string>
+	<key>webaddress</key>
+	<string>https://github.com/alexchantastic/alfred-open-with-vscode-workflow</string>
+</dict>
+</plist>
