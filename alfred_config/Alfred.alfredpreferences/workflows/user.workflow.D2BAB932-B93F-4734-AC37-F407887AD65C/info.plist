@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.sunzsh.frontiterm</string>
+	<key>connections</key>
+	<dict>
+		<key>2C98B317-8407-4D8F-85A3-CAEF7C49AB52</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1B342114-BE0F-4744-BE63-D53D6CB0B2B6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>xiaoshan</string>
+	<key>description</key>
+	<string>将iterm窗口打开或调到最前面</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>frontiterm</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+   tell application "iTerm"
+      if not running then
+         run
+         delay 0.25
+      end if
+      activate
+      set miniaturized of every window to false
+   end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>1B342114-BE0F-4744-BE63-D53D6CB0B2B6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>2C98B317-8407-4D8F-85A3-CAEF7C49AB52</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>1B342114-BE0F-4744-BE63-D53D6CB0B2B6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>390</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+		<key>2C98B317-8407-4D8F-85A3-CAEF7C49AB52</key>
+		<dict>
+			<key>xpos</key>
+			<integer>145</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0.1</string>
+	<key>webaddress</key>
+	<string>https://github.com/sunzsh</string>
+</dict>
+</plist>
