@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src/main/java/com/example/myapplication2'
+let g:netrw_dirhist_4='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src/main/java/com/example'
+let g:netrw_dirhist_3='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src/main/java/com'
+let g:netrw_dirhist_2='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src/main/java'
+let g:netrw_dirhist_1='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src/main'
+let g:netrw_dirhist_0='/Users/bytedance/AndroidStudioProjects/MyApplication2/app/src'
+let g:netrw_dirhist_9='/Users/bytedance/AndroidStudioProjects/MyApplication2/app'
+let g:netrw_dirhist_8='/Users/bytedance/AndroidStudioProjects/MyApplication2'
+let g:netrw_dirhist_7='/Users/bytedance/AndroidStudioProjects'
+let g:netrw_dirhist_6='/Users/bytedance'
