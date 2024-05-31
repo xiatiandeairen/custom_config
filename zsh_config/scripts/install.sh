@@ -32,6 +32,9 @@ brew install thefuck
 brew install htop
 brew install tmux
 brew install ranger
+brew install broot
+brew install w3m
+brew install s-search
 
 # software install
 brew install nvim
@@ -51,6 +54,7 @@ brew install utools
 brew install alfred
 brew install --cask dropshelf
 brew install spotify
+brew install aldente
 
 # code tools
 brew install java
