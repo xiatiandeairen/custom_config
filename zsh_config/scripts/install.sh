@@ -55,6 +55,7 @@ brew install alfred
 brew install --cask dropshelf
 brew install spotify
 brew install aldente
+brew install notion
 
 # code tools
 brew install java
@@ -62,10 +63,13 @@ brew install gradle
 brew install maven
 
 brew install python
+brew install pipx
+pipx install argcomplete
 
 brew install lua
 
-brew install rust
+brew install rustup
+sudo rustup-init
 
 brew install cmake
 brew install make
