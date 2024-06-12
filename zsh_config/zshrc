@@ -7,6 +7,7 @@ export GIT_CONFIG_PATH="$BASE_CONFIG_PATH/git_config"
 export VIM_CONFIG_PATH="$BASE_CONFIG_PATH/vim_config"
 
 # zsh config
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
 export HISTSIZE=10000                   # Maximum events for internal history
